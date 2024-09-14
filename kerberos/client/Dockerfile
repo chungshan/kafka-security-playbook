@@ -35,6 +35,6 @@ COPY client.sasl.jaas.config /etc/kafka/client_jaas.conf
 COPY producer.py /etc/kafka/producer.py
 COPY consumer.py /etc/kafka/consumer.py
 
-ENV KAFKA_OPTS=-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf
+ENV KAFKA_OPTS=-Djava.security.auth.login.config=/etc/kafka/client_jaas.conf
 
 CMD sleep infinity
