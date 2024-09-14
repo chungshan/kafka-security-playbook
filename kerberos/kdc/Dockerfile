@@ -19,6 +19,6 @@ RUN ln -s /etc/krb5.conf /etc/kdc/krb5.conf
 
 EXPOSE 88
 
-RUN kdb5_util -P confluent -r TEST.CONFLUENT.IO create -s
+RUN kdb5_util -P confluent -r TDH create -s
 
 CMD /usr/sbin/krb5kdc -n

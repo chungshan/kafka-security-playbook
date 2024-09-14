@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   kdc:
-    hostname: kdc.kerberos-demo.local
+    hostname: dashuju-1
     #domainname: kerberos_default
     build: kdc/
     container_name: kdc
