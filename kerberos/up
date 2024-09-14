@@ -10,6 +10,7 @@ docker-compose up -d kdc
 ### Create the required identities:
 # Kafka service principal:
 docker exec -ti kdc kadmin.local -w password -q "add_principal -randkey kafka/kafka.kerberos-demo.local@TDH"  > /dev/null
+docker exec -ti kdc kadmin.local -w password -q "add_principal -randkey kafka@TDH"  > /dev/null
 
 # Zookeeper service principal:
 docker exec -ti kdc kadmin.local -w password -q "add_principal -randkey zkservice/zookeeper.kerberos-demo.local@TDH"  > /dev/null
@@ -49,9 +50,3 @@ docker-compose up -d
 # Adding ACLs for consumer and producer user:
 # docker exec client bash -c "kinit -k -t /var/lib/secret/kafka-admin.keytab admin/for-kafka && kafka-acls --bootstrap-server kafka:9093 --command-config /etc/kafka/command.properties --add --allow-principal User:kafka_producer --producer --topic=*"
 # docker exec client bash -c "kinit -k -t /var/lib/secret/kafka-admin.keytab admin/for-kafka && kafka-acls --bootstrap-server kafka:9093 --command-config /etc/kafka/command.properties --add --allow-principal User:kafka_consumer --consumer --topic=* --group=*"
-
-
-# Output example usage:
-echo "Example configuration to access kafka:"
-echo "-> docker-compose exec client bash -c 'kinit -k -t /var/lib/secret/kafka.keytab kafka && kafka-console-producer --broker-list kafka:9093 --topic test --producer.config /etc/kafka/producer.properties'"
-echo "-> docker-compose exec client bash -c 'kinit -k -t /var/lib/secret/kafka.keytab kafka && kafka-console-consumer --bootstrap-server kafka:9093 --topic test --consumer.config /etc/kafka/consumer.properties --from-beginning'"

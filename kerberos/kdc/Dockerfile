@@ -18,6 +18,7 @@ RUN mkdir -p /var/kerberos/krb5kdc/
 RUN ln -s /etc/krb5.conf /etc/kdc/krb5.conf
 
 EXPOSE 88
+EXPOSE 1088
 
 RUN kdb5_util -P confluent -r TDH create -s
 
