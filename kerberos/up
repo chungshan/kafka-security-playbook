@@ -4,7 +4,7 @@ set -e
 # Starting kerberos,
 # Avoiding starting up all services at the begining to generate the keytab first
 
-docker-compose build
+docker-compose build --no-cache
 docker-compose up -d kdc
 
 ### Create the required identities:
