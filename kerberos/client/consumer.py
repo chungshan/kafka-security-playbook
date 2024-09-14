@@ -26,7 +26,6 @@ consumer = KafkaConsumer(
     sasl_mechanism='GSSAPI',  # For Kerberos
     sasl_kerberos_service_name=config.get('sasl.kerberos.service.name', 'kafka'),
     value_deserializer=lambda x: x.decode('utf-8'),
-    auto_offset_reset='earliest'
 )
 
 # Consume messages
