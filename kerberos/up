@@ -34,6 +34,7 @@ docker exec -ti kdc rm -f /var/lib/secret/kafka-client.keytab 2>&1 > /dev/null
 docker exec -ti kdc rm -f /var/lib/secret/kafka-admin.keytab 2>&1 > /dev/null
 
 docker exec -ti kdc kadmin.local -w password -q "ktadd  -k /var/lib/secret/kafka.keytab -norandkey kafka/kafka.kerberos-demo.local@TDH " > /dev/null
+docker exec -ti kdc kadmin.local -w password -q "ktadd  -k /var/lib/secret/kafka.keytab -norandkey kafka@TDH " > /dev/null
 docker exec -ti kdc kadmin.local -w password -q "ktadd  -k /var/lib/secret/zookeeper.keytab -norandkey zkservice/zookeeper.kerberos-demo.local@TDH " > /dev/null
 docker exec -ti kdc kadmin.local -w password -q "ktadd  -k /var/lib/secret/zookeeper-client.keytab -norandkey zkclient@TDH " > /dev/null
 docker exec -ti kdc kadmin.local -w password -q "ktadd  -k /var/lib/secret/kafka-client.keytab -norandkey kafka_producer@TDH " > /dev/null
@@ -52,5 +53,5 @@ docker-compose up -d
 
 # Output example usage:
 echo "Example configuration to access kafka:"
-echo "-> docker-compose exec client bash -c 'kinit -k -t /var/lib/secret/kafka-client.keytab kafka_producer && kafka-console-producer --broker-list kafka:9093 --topic test --producer.config /etc/kafka/producer.properties'"
-echo "-> docker-compose exec client bash -c 'kinit -k -t /var/lib/secret/kafka-client.keytab kafka_consumer && kafka-console-consumer --bootstrap-server kafka:9093 --topic test --consumer.config /etc/kafka/consumer.properties --from-beginning'"
+echo "-> docker-compose exec client bash -c 'kinit -k -t /var/lib/secret/kafka.keytab kafka && kafka-console-producer --broker-list kafka:9093 --topic test --producer.config /etc/kafka/producer.properties'"
+echo "-> docker-compose exec client bash -c 'kinit -k -t /var/lib/secret/kafka.keytab kafka && kafka-console-consumer --bootstrap-server kafka:9093 --topic test --consumer.config /etc/kafka/consumer.properties --from-beginning'"
